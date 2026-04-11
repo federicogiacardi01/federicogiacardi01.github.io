@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Federico Giacardi</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    /* ── Variables ─────────────────────────────────────────────────── */
+    :root {
+      --bg:        #f5f3ef;
+      --sidebar:   #1a1a2e;
+      --accent:    #c8503a;
+      --accent2:   #2176ae;
+      --text:      #1a1a2e;
+      --muted:     #6b6b80;
+      --border:    #e0ddd6;
+      --card:      #ffffff;
+      --serif:     'DM Serif Display', Georgia, serif;
+      --sans:      'DM Sans', sans-serif;
+    }
+
+    /* ── Reset ─────────────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+    }
+
+    /* ── Sidebar ───────────────────────────────────────────────────── */
+    .sidebar {
+      width: 260px;
+      min-height: 100vh;
+      background: var(--sidebar);
+      position: sticky;
+      top: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 3rem 1.5rem 2rem;
+      gap: 0;
+      flex-shrink: 0;
+    }
+
+    .avatar-wrap {
+      position: relative;
+      margin-bottom: 1.6rem;
+    }
+
+    .avatar {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid var(--accent);
+      display: block;
+    }
+
+    /* Placeholder avatar when no photo is set */
+    .avatar-placeholder {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: 3px solid var(--accent);
+      background: #2a2a42;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--serif);
+      font-size: 2.2rem;
+      color: var(--accent);
+      letter-spacing: 0.02em;
+    }
+
+    .sidebar-name {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      color: #f0ede8;
+      text-align: center;
+      line-height: 1.3;
+      margin-bottom: 0.3rem;
+    }
+
+    .sidebar-role {
+      font-size: 0.75rem;
+      color: #9090a8;
+      text-align: center;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 2.2rem;
+    }
+
+    .divider {
+      width: 40px;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+      margin-bottom: 2rem;
+    }
+
+    .contact-list {
+      list-style: none;
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 0.9rem;
+    }
+
+    .contact-list li a {
+      display: flex;
+      align-items: center;
+      gap: 0.65rem;
+      color: #b0b0c8;
+      text-decoration: none;
+      font-size: 0.82rem;
+      transition: color 0.2s;
+      word-break: break-all;
+    }
+
+    .contact-list li a:hover { color: var(--accent); }
+
+    .contact-icon {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+
+    .sidebar-footer {
+      margin-top: auto;
+      font-size: 0.7rem;
+      color: #55556a;
+      text-align: center;
+    }
+
+    /* ── Main ──────────────────────────────────────────────────────── */
+    .main {
+      flex: 1;
+      padding: 4rem 4rem 4rem 4.5rem;
+      max-width: 820px;
+    }
+
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(18px);
+      animation: fadeUp 0.6s ease forwards;
+    }
+    .fade-in:nth-child(1) { animation-delay: 0.1s; }
+    .fade-in:nth-child(2) { animation-delay: 0.25s; }
+    .fade-in:nth-child(3) { animation-delay: 0.40s; }
+    .fade-in:nth-child(4) { animation-delay: 0.55s; }
+
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ── Section headings ──────────────────────────────────────────── */
+    .section { margin-bottom: 3.5rem; }
+
+    .section-label {
+      font-size: 0.7rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .section-title {
+      font-family: var(--serif);
+      font-size: 2rem;
+      line-height: 1.15;
+      color: var(--text);
+      margin-bottom: 1.2rem;
+    }
+
+    /* ── About ─────────────────────────────────────────────────────── */
+    .about-text {
+      font-size: 1rem;
+      line-height: 1.8;
+      color: #3a3a50;
+      font-weight: 300;
+      max-width: 620px;
+    }
+
+    .about-text strong { font-weight: 500; color: var(--text); }
+
+    /* ── Education ─────────────────────────────────────────────────── */
+    .edu-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+    }
+
+    .edu-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.4rem;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 0 1.2rem;
+      align-items: start;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .edu-card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+
+    .edu-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 6px;
+    }
+
+    .edu-degree {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--text);
+      margin-bottom: 0.2rem;
+    }
+
+    .edu-institution {
+      font-size: 0.85rem;
+      color: var(--muted);
+      margin-bottom: 0.15rem;
+    }
+
+    .edu-year {
+      font-size: 0.78rem;
+      color: var(--accent2);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+    }
+
+    /* ── Theses ────────────────────────────────────────────────────── */
+    .thesis-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+    }
+
+    .thesis-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 0 10px 10px 0;
+      padding: 1.3rem 1.5rem;
+      transition: box-shadow 0.2s, transform 0.2s;
+    }
+
+    .thesis-card:nth-child(2) { border-left-color: var(--accent2); }
+
+    .thesis-card:hover {
+      box-shadow: 0 6px 24px rgba(0,0,0,0.07);
+      transform: translateY(-2px);
+    }
+
+    .thesis-badge {
+      display: inline-block;
+      font-size: 0.68rem;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: var(--accent);
+      background: #fdf0ed;
+      border-radius: 4px;
+      padding: 0.2rem 0.5rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .thesis-card:nth-child(2) .thesis-badge {
+      color: var(--accent2);
+      background: #eaf3fb;
+    }
+
+    .thesis-title {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      line-height: 1.4;
+      color: var(--text);
+      margin-bottom: 0.5rem;
+    }
+
+    .thesis-meta {
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .thesis-meta span { display: block; }
+
+    .thesis-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid transparent;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .thesis-card:nth-child(2) .thesis-link { color: var(--accent2); }
+
+    .thesis-link:hover { border-bottom-color: currentColor; }
+
+    /* ── Responsive ────────────────────────────────────────────────── */
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .sidebar {
+        width: 100%; height: auto; position: static;
+        padding: 2rem 1.5rem;
+      }
+      .main { padding: 2.5rem 1.5rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ════════════════════════════════ SIDEBAR ═══════════════════════════ -->
+  <aside class="sidebar">
+
+    <div class="avatar-wrap">
+      <img src="photo.png" alt="Federico Giacardi" class="avatar" />
+    </div>
+
+    <p class="sidebar-name">Federico Giacardi</p>
+    <p class="sidebar-role">MSc Computer Science</p>
+
+    <div class="divider"></div>
+
+    <ul class="contact-list">
+      <li>
+        <a href="mailto:your.email@example.com">
+          <!-- Email icon -->
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+            <rect x="2" y="4" width="20" height="16" rx="2"/>
+            <path d="m2 7 10 7 10-7"/>
+          </svg>
+          fgiacardi01@gmail.com
+        </a>
+      </li>
+      <li>
+        <a href="https://github.com/federicogiacardi01" target="_blank" rel="noopener">
+          <!-- GitHub icon -->
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483
+              0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466
+              -.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832
+              .092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688
+              -.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0 1 12 6.844a9.59 9.59
+              0 0 1 2.504.337c1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028
+              1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012
+              2.419-.012 2.747 0 .268.18.58.688.482A10.02 10.02 0 0 0 22 12.017C22 6.484 17.522 2 12 2z"/>
+          </svg>
+          Github
+        </a>
+      </li>
+      <li>
+        <a href="www.linkedin.com/in/federico-giacardi-3338731b4" target="_blank" rel="noopener">
+          <!-- LinkedIn icon -->
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/>
+            <rect x="2" y="9" width="4" height="12"/>
+            <circle cx="4" cy="4" r="2"/>
+          </svg>
+          LinkedIn          
+        </a>
+      </li>
+      <li>
+        <a href="https://www.unito.it" target="_blank" rel="noopener">
+          <!-- Temple / institution icon -->
+          <svg class="contact-icon" viewBox="0 0 24 24" fill="none"
+               stroke="currentColor" stroke-width="1.8"
+               stroke-linecap="round" stroke-linejoin="round">
+            <!-- pediment -->
+            <polyline points="2 9 12 3 22 9"/>
+            <!-- columns -->
+            <line x1="5"  y1="9" x2="5"  y2="19"/>
+            <line x1="9"  y1="9" x2="9"  y2="19"/>
+            <line x1="15" y1="9" x2="15" y2="19"/>
+            <line x1="19" y1="9" x2="19" y2="19"/>
+            <!-- entablature -->
+            <line x1="3"  y1="9"  x2="21" y2="9"/>
+            <!-- stylobate -->
+            <line x1="2"  y1="19" x2="22" y2="19"/>
+            <!-- steps -->
+            <line x1="1"  y1="21" x2="23" y2="21"/>
+          </svg>
+          Università di Torino
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- ════════════════════════════════ MAIN ══════════════════════════════ -->
+  <main class="main">
+
+    <!-- About -->
+    <section class="section fade-in">
+      <p class="section-label">About</p>
+      <h1 class="section-title">Federico Giacardi</h1>
+      <p class="about-text">
+      I'm a computer science student interested in applying computational techniques to solve science and engineering problems.
+        From a very young age, my life has been driven by the desire to build complex systems that could impact everyone's life.
+        <strong>Computer science</strong> has therefore been a natural career path for me, given its ability to blend engineering and math.
+        After earning a bachelor's degree that fueled my desire to learn and provided a new perspective on complex problems, I decided to pursue a master's degree in <strong>Artificial Intelligence</strong> at the University of Turin.
+        My bachelor's thesis exposed me to scientific research and resulted in a fellowship on the application of high-performance and distributed computing to large graph processing and autonomous team formation.
+        I completed my Master's thesis after a 2-months internship at INRA Saclay, where I worked on predicting cognitive processes from functional MRI data
+        using machine learning. My research interests now sits at the intersection of
+        <strong>representation learning</strong>, <strong>domain adaptation</strong>, and
+        <strong>computational neuroscience</strong>, with a particular focus on building
+        robust, generalizable models of cognition from neuroimaging data.
+        I am currently pursuing a PhD position to extend this work towards
+        a <strong>foundation model for human cognition</strong> trained on large,
+        harmonized multi-site fMRI datasets.
+      </p>
+    </section>
+
+    <!-- Education -->
+    <section class="section fade-in">
+      <p class="section-label">Education</p>
+      <h2 class="section-title">Academic Background</h2>
+      <div class="edu-list">
+
+        <div class="edu-card">
+          <div class="edu-dot"></div>
+          <div>
+            <p class="edu-degree">MSc in Computer Science</p>
+            <p class="edu-institution">Università degli Studi di Torino</p>
+            <p class="edu-year">2023 – 2026</p>
+          </div>
+        </div>
+
+        <div class="edu-card">
+          <div class="edu-dot" style="background: var(--accent2);"></div>
+          <div>
+            <p class="edu-degree">BSc in Computer Science</p>
+            <p class="edu-institution">Università degli Studi di Torino</p>
+            <p class="edu-year">2020 – 2023</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Theses -->
+    <section class="section fade-in">
+      <p class="section-label">Research</p>
+      <h2 class="section-title">Theses</h2>
+      <div class="thesis-list">
+
+        <!-- Master's thesis -->
+        <div class="thesis-card">
+          <span class="thesis-badge">Master's Thesis · 2026</span>
+          <h3 class="thesis-title">
+            Predicting Cognition from Functional MRI with Machine Learning:
+            Methodological and Data Challenges
+          </h3>
+          <div class="thesis-meta">
+            <span><strong>Supervisors:</strong> Prof. Marco Grangetto, Carlo Alberto Barbano</span>
+            <span><strong>Institution:</strong> Università degli Studi di Torino</span>
+            <span>
+              Proposes two domain adaptation techniques for multi-site fMRI harmonisation —
+              optimal transport in log-Cholesky space and gradient reversal with inverted
+              cross-entropy — and benchmarks state-of-the-art models for cognitive score
+              prediction from functional connectivity matrices.
+            </span>
+          </div>
+          <a class="thesis-link" href="msc_thesis.pdf" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+            View PDF
+          </a>
+        </div>
+
+        <!-- Bachelor's thesis -->
+        <div class="thesis-card">
+          <span class="thesis-badge">Bachelor's Thesis · 2023</span>
+          <h3 class="thesis-title">
+            Heuristics for Team Formation in Aggregate Computing 
+          </h3>
+          <div class="thesis-meta">
+            <span><strong>Supervisor:</strong> Giorgio Audrito</span>
+            <span><strong>Institution:</strong> Università degli Studi di Torino</span>
+            <span>
+              Analyzed the problem of autonomous team formation in swarms of IoT
+              devices and proposed new heuristics for its efficient, accurate, and fully-decentralized
+              resolution.
+            </span>
+            <span><strong>Final Mark:</strong>110/110 cum laude</span>
+          </div>
+          <a class="thesis-link" href="bsc_thesis.pdf" target="_blank" rel="noopener">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none"
+                 stroke="currentColor" stroke-width="2">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+              <polyline points="14 2 14 8 20 8"/>
+            </svg>
+            View PDF
+          </a>
+        </div>
+
+      </div>
+    </section>
+
+  </main>
+
+</body>
+</html>
